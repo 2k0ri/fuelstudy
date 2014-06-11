@@ -1,5 +1,5 @@
 <?php
-class Controller_Schedule extends Controller_Template{
+class Controller_Schedule extends Controller_Hybrid{
 
 	public function action_index()
 	{
@@ -134,5 +134,12 @@ class Controller_Schedule extends Controller_Template{
 
 	}
 
+    public function get_detail()
+    {
+
+        return $this->response(array(
+
+        ));
+    }
 
 }
