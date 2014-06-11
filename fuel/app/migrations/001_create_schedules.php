@@ -12,9 +12,9 @@ class Create_schedules
 			'end_time' => array('type' => 'timestamp'),
 			'schedule_title' => array('constraint' => 50, 'type' => 'varchar'),
 			'schedule_contents' => array('type' => 'text'),
-			'created_at' => array('type' => 'timestamp'),
-			'update_at' => array('type' => 'timestamp'),
-			'deleted_at' => array('type' => 'timestamp'),
+			'created_at' => array('constraint' => 11, 'type' => 'int', 'null' => true),
+			'updated_at' => array('constraint' => 11, 'type' => 'int', 'null' => true),
+			'deleted_at' => array('constraint' => 11, 'type' => 'int', 'null' => true),
 
 		), array('id'));
 	}
