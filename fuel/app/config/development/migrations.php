@@ -7,6 +7,7 @@ return array(
 			'default' => 
 			array(
 				0 => '001_create_schedules',
+				1 => '002_rename_field_id_to_schedule_id_in_schedules',
 			),
 		),
 		'module' => 

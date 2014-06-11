@@ -14,7 +14,7 @@
 class Model_Schedule extends \Orm\Model_Soft
 {
 	protected static $_properties = array(
-		'id',
+		'schedule_id',
 		'start_time',
 		'end_time',
 		'schedule_title',
@@ -23,6 +23,8 @@ class Model_Schedule extends \Orm\Model_Soft
 		'updated_at',
 		'deleted_at',
 	);
+
+    protected static $_primary_key = array('schedule_id');
 
 	protected static $_observers = array(
 		'Orm\Observer_CreatedAt' => array(
