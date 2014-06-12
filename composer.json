@@ -34,5 +34,8 @@
             "php oil r install"
         ]
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "require-dev": {
+        "phpunit/phpunit": "dev-master"
+    }
 }
