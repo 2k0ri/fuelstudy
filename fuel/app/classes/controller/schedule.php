@@ -1,5 +1,5 @@
 <?php
-class Controller_Schedule extends Controller_Hybrid
+class Controller_Schedule extends Controller_Template
 {
 
 	public function action_index()
@@ -134,18 +134,5 @@ class Controller_Schedule extends Controller_Hybrid
 		Response::redirect('schedule');
 
 	}
-
-    /**
-     * ajax用予定取得メソッド
-     * @param  string $id スケジュールID
-     * @return json
-     * 
-     * @author Kei Kori
-     */
-    public function get_detail($id = 'all')
-    {
-        return $this->response(Model_Schedule::find($id));
-    }
-    protected $format = 'json';
 
 }
