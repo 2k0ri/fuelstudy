@@ -1,5 +1,6 @@
 <?php
-class Controller_Schedule extends Controller_Template{
+class Controller_Schedule extends Controller_Hybrid
+{
 
 	public function action_index()
 	{
@@ -41,7 +42,7 @@ class Controller_Schedule extends Controller_Template{
 
 				if ($schedule and $schedule->save())
 				{
-					Session::set_flash('success', 'Added schedule #'.$schedule->id.'.');
+					Session::set_flash('success', 'Added schedule #'.$schedule->schedule_id.'.');
 
 					Response::redirect('schedule');
 				}
@@ -134,5 +135,17 @@ class Controller_Schedule extends Controller_Template{
 
 	}
 
+    /**
+     * ajax用予定取得メソッド
+     * @param  string $id スケジュールID
+     * @return json
+     * 
+     * @author Kei Kori
+     */
+    public function get_detail($id = 'all')
+    {
+        return $this->response(Model_Schedule::find($id));
+    }
+    protected $format = 'json';
 
 }
