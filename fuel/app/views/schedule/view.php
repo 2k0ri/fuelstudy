@@ -1,4 +1,4 @@
-<h2>Viewing <span class='muted'>#<?php echo $schedule->id; ?></span></h2>
+<h2>Viewing <span class='muted'>#<?php echo $schedule->schedule_id; ?></span></h2>
 
 <p>
 	<strong>Start time:</strong>
@@ -13,5 +13,5 @@
 	<strong>Schedule contents:</strong>
 	<?php echo $schedule->schedule_contents; ?></p>
 
-<?php echo Html::anchor('schedule/edit/'.$schedule->id, 'Edit'); ?> |
+<?php echo Html::anchor('schedule/edit/'.$schedule->schedule_id, 'Edit'); ?> |
 <?php echo Html::anchor('schedule', 'Back'); ?>
