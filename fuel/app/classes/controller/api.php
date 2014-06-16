@@ -5,7 +5,6 @@
  */
 class Controller_Api extends Controller_Rest
 {
-
     /**
      * 予定全取得(schedule()のエイリアス)
      * 
