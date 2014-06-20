@@ -1,13 +1,11 @@
 <?php
 class Controller_Schedule extends Controller_Template
 {
-
 	public function action_index()
 	{
 		$data['schedules'] = Model_Schedule::find('all');
 		$this->template->title = "Schedules";
-		$this->template->content = View::forge('schedule/index', $data);
-
+		$this->template->content = ViewModel::forge('schedule/index');
 	}
 
 	public function action_view($id = null)
