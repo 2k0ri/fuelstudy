@@ -4,12 +4,6 @@ class View_Schedule_index extends ViewModel
 {
 	public function view()
 	{
-		// $this->schedules = Model_Schedule::query()->where('start_date', 
-		// 	'between', array(
-		// 		Date::create_from_string('201405' . '01' . '000000'), 
-		// 		Date::create_from_string('201407' . Date::days_in_month(7) . '235959')
-		// 	)
-		// );
 		$this->schedules = Model_Schedule::find('all');
 
 		$this->year = Input::get('year', date('Y'));
@@ -77,7 +71,7 @@ class View_Schedule_index extends ViewModel
 		$this->auc_topic = array();// オクトピの配列
 		$this->auc_link = array();// オクトピのリンクの配列
 
-		foreach ( $this->rss->channel->item as $key => $value) {
+		foreach ($this->rss->channel->item as $key => $value) {
 		    $this->title = (string)$value->title;
 		    $this->date  = date('Y-m-d', strtotime((string)$value->pubDate));// 日付を整形して代入
 		    $this->link  = (string)$value->link;
@@ -85,39 +79,26 @@ class View_Schedule_index extends ViewModel
 		    $this->auc_link[$this->date]  = $this->link;
 		}
 
-		//TODO: $this->schedulesでリファクタ
 		//スケジュールSQL実行代入
+		$schedules_obj = Model_Schedule::find('all');
+		$this->schedules = array();
+		foreach ($schedules_obj as $schedule) {
+			$start_time = Date::create_from_string($schedule->start_time, 'mysql');
+			$end_time = Date::create_from_string($schedule->end_time, 'mysql');
 
-		// if ($this->result = mysqli_query($this->db_connect, $this->schedule_sql)) {
-		//     while ($this->array_row = mysqli_fetch_array($this->result, MYSQLI_ASSOC)) {
-		//         list($this->start_year, $this->start_month, $this->start_day) = explode('-', date('Y-m-j',strtotime($this->array_row['start_time'])));
-		//         list($this->end_s_year, $this->end_s_month, $this->end_s_day) = explode('-', date('Y-m-j',strtotime($this->array_row['end_time'])));
-		//         $this->schedules[$this->start_year][$this->start_month][$this->start_day][] = array(
-		//             'title'       => $this->array_row['schedule_title'],
-		//             'contents'    => $this->array_row['schedule_contents'],
-		//             'schedule_id' => $this->array_row['schedule_id']
-		//         );
-		//         if (strtotime($this->array_row['start_time']) >= strtotime($this->array_row['end_time'])) {
-		//             continue;
-		//         }
-		//         //一致した日に＋1日して予定吐き出し
-		//         $this->n_day   = $this->start_day;
-		//         $this->n_month = $this->start_month;
-		//         $this->n_year  = $this->start_year;
+			$days = Date::range_to_array($start_time, $end_time);
 
-		//         while ($this->n_day != $this->end_s_day || $this->n_month != $this->end_s_month || $this->n_year != $this->end_s_year) {
-		//             $this->ymd_day = date('Y-m-j',strtotime('tomorrow',strtotime($this->n_year.'-'.$this->n_month.'-'.$this->n_day)));
-		//             list($this->n_year, $this->n_month, $this->n_day) = explode('-', $this->ymd_day);
-		//             $this->schedules[$this->n_year][$this->n_month][$this->n_day][] = array(
-		//                 'title'       => $this->array_row['schedule_title'],
-		//                 'contents'    => $this->array_row['schedule_contents'],
-		//                 'schedule_id' => $this->array_row['schedule_id']
-		//             );
-		//         }
-		//     }
-		//     mysqli_free_result($this->result);
-		// }
-		// mysqli_close($this->db_connect);
+			foreach ($days as $day) {
+				$start_year = $day->format('%Y');
+				$start_month = $day->format('%m');
+				$start_day = $day->format('%d');
+				$this->schedules[$start_year][$start_month][$start_day][] = array(
+					'title' => $schedule->schedule_title,
+					'contents' => $schedule->schedule_contents,
+					'schedule_id' => $schedule->schedule_id,
+				);
+			}
+		}
 
 		// 年可変用変数
 		$this->start_combo_year = $this->year-5;
